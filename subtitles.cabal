@@ -1,0 +1,17 @@
+Name: Subtitles
+Version: 0.1
+License: BSD3
+Description: Not complete Ass to Srt subtitle converter
+Author: Andor Penzes <andor.penzes@gmail.com>
+Stability: Experimental
+Build-Type: Simple
+Cabal-Version: >= 1.2
+
+Executable Subtitles
+  Main-is: Subtitles/Main.hs
+  HS-Source-Dirs: src
+  Build-Depends:
+    base,
+    containers,
+    text
+
