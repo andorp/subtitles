@@ -12,5 +12,5 @@ test = assertionCata equals
   where
     equals found expected testName
       | found == expected = putStrLn $ "[ OK ] " ++ testName
-      | otherwise         = putStrLn $ "[FAIL] " ++ testName
+      | otherwise         = putStrLn $ "[FAIL] " ++ testName ++ "Found: " ++ show found ++ ", expected: " ++ show expected
 

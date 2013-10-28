@@ -1,6 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Subtitles.Plugin.Srt where
 
+import Data.Function
+import Data.List (sortBy)
 import Data.Text (Text)
 import qualified Data.Text as T
 import Text.Printf (printf)
@@ -11,6 +13,8 @@ data SrtDialog = SrtDialog Dialog
 
 srtDialogCata f (SrtDialog x) = f x
 
+dialog = srtDialogCata id
+
 srtOutputPlugin :: Conversion i o -> Conversion i SrtDialog
 srtOutputPlugin c = c { writeOutput = srtOutput , dialogOutput = SrtDialog }
 
@@ -19,10 +23,7 @@ srtOutputPlugin c = c { writeOutput = srtOutput , dialogOutput = SrtDialog }
 -- numbers, numbers the dialogs, print the dialog in srt form with
 -- a newline character and concatenates to each other
 srtOutput :: [SrtDialog] -> String
-srtOutput = T.unpack . T.unlines . concatMap printDialog . numbering . order
-
-order :: [SrtDialog] -> [SrtDialog]
-order = id
+srtOutput = T.unpack . T.unlines . concatMap printDialog . numbering
 
 numbering :: [SrtDialog] -> [(Int, SrtDialog)]
 numbering = zip [1..]
